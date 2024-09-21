@@ -11,16 +11,22 @@ export const AddArticle = React.memo(function AddArticle() {
     // コードブロックのカスタムレンダラー
     const components = {
         code({ node, inline, className, children, ...props }: any) {
-            const match = /language-(\w+)/.exec(className || '');
-            return !inline && match ? (
-                <SyntaxHighlighter
-                    style={atomDark} // 好みのテーマに変更可能
-                    language={match[1]}
-                    PreTag="div"
-                    {...props}
-                >
-                    {String(children).replace(/\n$/, '')}
-                </SyntaxHighlighter>
+            const match = /language-(\w+)(:(.+))?/.exec(className || '');
+            const language = match ? match[1] : null;
+            const fileName = match && match[3] ? match[3] : null; // `:`の右側をファイル名として取得
+
+            return !inline && language ? (
+                <div>
+                    {/* ファイル名がある場合は、角丸と灰色の背景を適用 */}
+                    {fileName && (
+                        <div className="bg-gray-500 text-white px-2 py-1 text-sm rounded-md w-fit mb-2 -mt-3 -ms-5">
+                            {fileName}
+                        </div>
+                    )}
+                    <code className={className} {...props}>
+                        {children}
+                    </code>
+                </div>
             ) : (
                 <code className={className} {...props}>
                     {children}
