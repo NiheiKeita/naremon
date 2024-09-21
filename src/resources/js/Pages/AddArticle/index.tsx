@@ -23,16 +23,25 @@ export const AddArticle = React.memo(function AddArticle() {
                             {fileName}
                         </div>
                     )}
-                    <code className={className} {...props}>
-                        {children}
-                    </code>
+
+                    <SyntaxHighlighter
+                        style={atomDark} // 好みのテーマに変更可能
+                        language={match?.[1]}
+                        PreTag="div"
+                        {...props}
+                    >
+                        {children && String(children)?.replace(/\n$/, '')}
+                    </SyntaxHighlighter>
                 </div>
             ) : (
                 <code className={className} {...props}>
                     {children}
                 </code>
             );
-        }
+        },
+        // pre({ children }: any) {
+        //     return <pre>{children}</pre>
+        // }
     };
 
     return (
