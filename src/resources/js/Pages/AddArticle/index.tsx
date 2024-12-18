@@ -3,7 +3,6 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import 'tailwindcss/tailwind.css';
 
 export const AddArticle = React.memo(function AddArticle() {
     const [markdown, setMarkdown] = useState<string>('');
@@ -39,9 +38,6 @@ export const AddArticle = React.memo(function AddArticle() {
                 </code>
             );
         },
-        // pre({ children }: any) {
-        //     return <pre>{children}</pre>
-        // }
     };
 
     return (
